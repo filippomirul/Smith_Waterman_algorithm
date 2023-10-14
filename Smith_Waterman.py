@@ -47,7 +47,7 @@ class Graph:
         if node not in self.__nodes:
             self.__nodes[node] = {}
 
-    def insertEdge(self, node1, node2, weight):
+    def insertEdge(self, node1, node2, weight:int):
         if (node1 in self.nodes()) and (node2 in self.nodes()):
             # se entrambi sono del grafo
             self.__nodes[node1][node2] =  weight
