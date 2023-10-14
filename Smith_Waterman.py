@@ -12,10 +12,11 @@ Not all the nodes are connected to other due to the fact that not every position
 class Graph:
 
     """     
-    The key is the node id and the value is a dictionary
-    with second node as key and the weight as value
+    This class create a graph with the use of a disctionary.
+    The keys are the nodes id and the value is an other dictionary
+    with node link with the fisrt as key and the weight as value.
     EX:
-    {node : {node2: 23, node 23: 45, node64 : 23}, node2 : {node2: {node1: 23}}}
+    {node1: {node2: 23, node 23: 45, node64: 23}, node2 : {node2: 23}}
     fist key node of departure, second node of arrival, value is the weight
     """
     
