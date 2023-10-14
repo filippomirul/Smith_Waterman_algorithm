@@ -445,7 +445,7 @@ def check(some:list):
     bb = True
     alphabet = ["Q","W","E","R","T","Y","U","I","O","P","L","K",
                 "J","H","G","F","D","S","A","Z","X","C","V","B","N","M"]
-    for j in [some]:
+    for j in some:
         for i in j:
             if i not in alphabet:
                 bb = False
