@@ -1,13 +1,21 @@
 import numpy as np
 import sys
+import argparse
 
-"""
-This code is an implementation of Smith-Waterman algorithm, it uses both matrix and a graph class.
-The matrix is constructed while the scores are being up dated (following the scores assignments), simultaneously for each possibility a node is created
-and the graph is custructed. The graph is needed for the later back track, so is oriented in the opposite way of the
-computations that creates the matrix.
-Not all the nodes are connected to other due to the fact that not every position of the matrix 
-"""
+
+parser = argparse.ArgumentParser(
+    description = """
+    This code is an implementation of Smith-Waterman algorithm, it uses both matrix and a graph class.
+    The matrix is constructed while the scores are being up dated (following the scores assignments), simultaneously for each possibility a node is created
+    and the graph is custructed. The graph is needed for the later back track, so is oriented in the opposite way of the
+    computations that creates the matrix.
+    Not all the nodes are connected to other due to the fact that not every position of the matrix 
+    """)
+
+parser.add_argument("-s1", "--sequence_1", type = str, help= "First sequence")
+parser.add_argument("-s2", "--sequence_2", type = str, help = "Second sequence")
+args = parser.parse_args()
+
 
 class Graph:
 
@@ -436,22 +444,25 @@ def Smith_Waterman(sequence1, sequence2):
         
     return 
 
-obj = [obj.upper() for obj in [sys.argv[1], sys.argv[2]]]
-
 def check(some:list):
-    
+
     """
-    Check if there are sensless letters, kinds of à,@ or numbers.
+    Check if there are non sense letters, such as à,@ or numbers.
     """
     bb = True
+    if len(some)== 0:
+        bb = False
+        return bb
     alphabet = ["Q","W","E","R","T","Y","U","I","O","P","L","K",
                 "J","H","G","F","D","S","A","Z","X","C","V","B","N","M"]
     for j in some:
         for i in j:
             if i not in alphabet:
                 bb = False
+                continue
     return bb
 
+obj = [obj.upper() for obj in [args.sequence_1, args.sequence_2] if args.sequence_1 != None]
 
 
 if check(obj):
