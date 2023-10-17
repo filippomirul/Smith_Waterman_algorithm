@@ -1,5 +1,4 @@
 import numpy as np
-import sys
 import argparse
 
 
@@ -9,11 +8,20 @@ parser = argparse.ArgumentParser(
     The matrix is constructed while the scores are being up dated (following the scores assignments), simultaneously for each possibility a node is created
     and the graph is custructed. The graph is needed for the later back track, so is oriented in the opposite way of the
     computations that creates the matrix.
-    Not all the nodes are connected to other due to the fact that not every position of the matrix 
+
+    This algorithm return all the possible allignment with score equal to the maximum score.
+    For this reason form the more are long the sequences in input the more time it needs to compute all the possibilities.
+
+    For testing try :
+    atcgatggac
+    aggctatcaact
+
     """)
 
-parser.add_argument("-s1", "--sequence_1", type = str, help= "First sequence")
+parser.add_argument("-s1", "--sequence_1", type = str, help = "First sequence")
 parser.add_argument("-s2", "--sequence_2", type = str, help = "Second sequence")
+parser.add_argument("-sc", "--scores", type = dict, help = """Dictionary with match, mis-match and gap scores.
+                    Example: {"match": 3, "mis-match": -2, "gap" : 1} """)
 args = parser.parse_args()
 
 
@@ -462,11 +470,11 @@ def check(some:list):
                 continue
     return bb
 
+
 obj = [obj.upper() for obj in [args.sequence_1, args.sequence_2] if args.sequence_1 != None]
 
-
 if check(obj):
-    Smith_Waterman(obj[1], obj[2])
+    Smith_Waterman(obj[0], obj[1])
 else:
     print("Please insert a sequence:\n")
     seq1 = str(input()).upper()
