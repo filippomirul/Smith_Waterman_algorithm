@@ -1,9 +1,11 @@
 import numpy as np
 import argparse
+import textwrap
 
 
 parser = argparse.ArgumentParser(
-    description = """
+    formatter_class = argparse.RawDescriptionHelpFormatter,
+    description = textwrap.dedent("""
     This code is an implementation of Smith-Waterman algorithm, it uses both matrix and a graph class.
     The matrix is constructed while the scores are being up dated (following the scores assignments), simultaneously for each possibility a node is created
     and the graph is custructed. The graph is needed for the later back track, so is oriented in the opposite way of the
@@ -13,15 +15,16 @@ parser = argparse.ArgumentParser(
     For this reason form the more are long the sequences in input the more time it needs to compute all the possibilities.
 
     For testing try :
+
     atcgatggac
     aggctatcaact
 
-    """)
+    """))
 
 parser.add_argument("-s1", "--sequence_1", type = str, help = "First sequence")
 parser.add_argument("-s2", "--sequence_2", type = str, help = "Second sequence")
 parser.add_argument("-sc", "--scores", type = dict, help = """Dictionary with match, mis-match and gap scores.
-                    Example: {"match": 3, "mis-match": -2, "gap" : 1} """)
+                    Example: {"match": 3, "mis-match": -2, "gap" : 1} """) # TODO IMPLEMENT
 args = parser.parse_args()
 
 
