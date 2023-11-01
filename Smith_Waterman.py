@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(
     description = textwrap.dedent("""
     This code is an implementation of Smith-Waterman algorithm, it uses both matrix and a graph class.
     The matrix is constructed while the scores are being up dated (following the scores assignments), simultaneously for each possibility a node is created
-    and the graph is custructed. The graph is needed for the later back track, so is oriented in the opposite way of the
+    and the graph is constructed. The graph is needed for the later back track, so is oriented in the opposite way of the
     computations that creates the matrix.
 
     This algorithm return all the possible allignment with score equal to the maximum score.
@@ -23,8 +23,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument("-s1", "--sequence_1", type = str, help = "First sequence")
 parser.add_argument("-s2", "--sequence_2", type = str, help = "Second sequence")
-parser.add_argument("-sc", "--scores", type = dict, help = """Dictionary with match, mis-match and gap scores.
-                    Example: {"match": 3, "mis-match": -2, "gap" : 1} """) # TODO IMPLEMENT
+
 args = parser.parse_args()
 
 
@@ -145,6 +144,7 @@ class Graph:
         seen.append(node)
 
         paths = []
+        cnt = 0
         for t in self.adjacentEdge(node): # edges uscenti da v
             if t not in seen:
                 t_path = path + [t]
@@ -152,6 +152,8 @@ class Graph:
                 paths.append(tuple(t_path))
                 #print(f"paths {paths}")
                 paths.extend(self.DFS_path(t, seen[:], t_path))
+            #print(f"Navigating the graph... {if even number "|" "--"}")
+            cnt += 1
         #print(f"paths {paths}")
                 
         real = []
@@ -434,7 +436,7 @@ def scoring_matrix(seq1 : str, seq2 : str, scores: dict, G: Graph):
     #return the graph and the list with tha maximum positions in a tuple
     return  (maxi_positions, max_values[0])
 
-def Smith_Waterman(sequence1, sequence2):
+def Smith_Waterman(sequence1, sequence2, score = None):
     
     """
     Take as input two string object and performe the local alignment
@@ -475,6 +477,7 @@ def check(some:list):
 
 
 obj = [obj.upper() for obj in [args.sequence_1, args.sequence_2] if args.sequence_1 != None]
+        
 
 if check(obj):
     Smith_Waterman(obj[0], obj[1])
